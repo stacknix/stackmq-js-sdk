@@ -1,0 +1,25 @@
+{
+  "name": "stackmq-js-sdk",
+  "version": "1.0.0",
+  "description": "Tools for developers to implement real-time messaging",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stacknix/stackmq-js-sdk.git"
+  },
+  "keywords": [
+    "stackmq"
+  ],
+  "author": "Ashish Sahu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stacknix/stackmq-js-sdk/issues"
+  },
+  "homepage": "https://github.com/stacknix/stackmq-js-sdk#readme",
+  "dependencies": {
+    "mqtt": "^5.7.0"
+  }
+}
