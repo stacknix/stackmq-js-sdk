@@ -1,25 +1,25 @@
-# stackmq-js-sdk
+# stackmq
 
-[![npm](https://img.shields.io/npm/v/stackmq-js-sdk)](https://www.npmjs.com/package/stackmq-js-sdk) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![npm](https://img.shields.io/npm/v/stackmq)](https://www.npmjs.com/package/stackmq) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 Tools for developers to implement real-time messaging
 
 ## Getting started
 
 ```bash
-npm install stackmq-js-sdk
+npm install stackmq
 ```
 
 ## Example
 ```js
-import { StackmqConnection } from "stackmq-js-sdk";
+import { Stackmq } from "stackmq";
 
-const connectionString = `${host}://${hostAddress}:${port}/${username}:${password}/client/${clientId}/${topic}`;
+const connectionString = `<your_connection_string>`;
 
-const stackmq = new StackmqConnection(connectionString);
+const stackmq = new Stackmq(connectionString);
 
 stackmq.onMessage((message) => {
-    console.log({ message });
+    console.log(message);
 })
 .onError((error) => {
     console.log({ error });
@@ -27,9 +27,9 @@ stackmq.onMessage((message) => {
 ```
 
 ## Api
-- `StackmqConnection()`
+- `Stackmq()`
 
-### StackmqConnection(connectionString)
+### Stackmq(connectionString)
 
 Creates a new stackmq connection
 

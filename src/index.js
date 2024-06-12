@@ -1,3 +1,3 @@
-import { StackmqConnection } from "./StackmqConnection";
+import { Stackmq } from "./Stackmq";
 
-export { StackmqConnection };
+export { Stackmq };

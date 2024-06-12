@@ -2,7 +2,7 @@ import mqtt from "mqtt";
 
 import { parseUrl } from "./utils";
 
-export class StackmqConnection {
+export class Stackmq {
   /**
    * Create an stackmq connection.
    * @param {string} connectionString - The connection string for the stackmq broker.
@@ -23,7 +23,7 @@ export class StackmqConnection {
 
   /**
    * Initialize the stackmq connection.
-   * @return {StackmqConnection} The instance of the StackmqConnection for chaining.
+   * @return {Stackmq} The instance of the Stackmq for chaining.
    */
   init() {
     if (this.isConnected) return this;
@@ -46,7 +46,7 @@ export class StackmqConnection {
 
   /**
    * Handle stackmq connect event.
-   * @return {StackmqConnection} The instance of the StackmqConnection for chaining.
+   * @return {Stackmq} The instance of the Stackmq for chaining.
    */
   onConnect(callback) {
     if (this.stackmqClient) {
@@ -61,7 +61,7 @@ export class StackmqConnection {
   /**
    * Subscribe to a topic.
    * @param {string} topic - The topic to subscribe to.
-   * @return {StackmqConnection} The instance of the StackmqConnection for chaining.
+   * @return {Stackmq} The instance of the Stackmq for chaining.
    */
   subscribe() {
     if (this.stackmqClient) {
@@ -82,7 +82,7 @@ export class StackmqConnection {
   /**
    * Handle stackmq message event.
    * @param {Function} callback - The callback function to handle incoming messages.
-   * @return {StackmqConnection} The instance of the StackmqConnection for chaining.
+   * @return {Stackmq} The instance of the Stackmq for chaining.
    */
   onMessage(callback) {
     if (this.stackmqClient) {
@@ -96,7 +96,7 @@ export class StackmqConnection {
 
   /**
    * Handle stackmq error event.
-   * @return {StackmqConnection} The instance of the StackmqConnection for chaining.
+   * @return {Stackmq} The instance of the Stackmq for chaining.
    */
   onError(callback) {
     if (this.stackmqClient) {
@@ -110,7 +110,7 @@ export class StackmqConnection {
 
   /**
    * Disconnect the stackmq client.
-   * @return {StackmqConnection} The instance of the StackmqConnection for chaining.
+   * @return {Stackmq} The instance of the Stackmq for chaining.
    */
   disconnect() {
     if (this.stackmqClient) {
@@ -123,7 +123,7 @@ export class StackmqConnection {
   /**
    * Publish a message to a topic.
    * @param {string} message - The message to publish.
-   * @return {StackmqConnection} The instance of the StackmqConnection for chaining.
+   * @return {Stackmq} The instance of the Stackmq for chaining.
    */
   publish(message) {
     if (this.stackmqClient) {
