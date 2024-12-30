@@ -1,14 +1,12 @@
 import mqtt from "mqtt";
 
-import { parseUrl } from "./utils";
-
 export class Stackmq {
   /**
    * Create an stackmq connection.
-   * @param {string} connectionString - The connection string for the stackmq broker.
+   * @param {import("stackmq").connectionData} connectionData - The connection data for the stackmq broker.
    */
-  constructor(connectionString) {
-    this.parsedConnection = parseUrl(connectionString);
+  constructor(connectionData) {
+    this.connectionData = connectionData;
     this.stackmqClient = null;
     this.init();
   }
@@ -29,10 +27,15 @@ export class Stackmq {
     if (this.isConnected) return this;
 
     try {
-      const { hostAddress, port, username, password, clientId } =
-        this.parsedConnection;
+      const {
+        username,
+        password,
+        client_id: clientId,
+        host,
+        wss_port: wssPort,
+      } = this.connectionData;
 
-      this.stackmqClient = mqtt.connect(`ws://${hostAddress}:${port}/mqtt`, {
+      this.stackmqClient = mqtt.connect(`wss://${host}:${wssPort}`, {
         username,
         password,
         clientId,
@@ -65,7 +68,7 @@ export class Stackmq {
    */
   subscribe() {
     if (this.stackmqClient) {
-      const { topic } = this.parsedConnection;
+      const { sub_topic: topic } = this.connectionData;
       this.stackmqClient.subscribe(topic, (error) => {
         if (error) {
           console.error(`Failed to subscribe to ${topic}: ${error}`);
@@ -87,7 +90,6 @@ export class Stackmq {
   onMessage(callback) {
     if (this.stackmqClient) {
       this.stackmqClient.on("message", (_, message) => {
-        console.log("Received message:", message.toString());
         if (callback) callback(message.toString());
       });
     }
@@ -127,7 +129,7 @@ export class Stackmq {
    */
   publish(message) {
     if (this.stackmqClient) {
-      const { topic } = this.parsedConnection;
+      const { sub_topic: topic } = this.connectionData;
       this.stackmqClient.publish(topic, message, (error) => {
         if (error) {
           console.error(`Failed to publish to ${topic}: ${error}`);

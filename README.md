@@ -11,27 +11,38 @@ npm install stackmq
 ```
 
 ## Example
+
 ```js
 import { Stackmq } from "stackmq";
 
-const connectionString = `<your_connection_string>`;
+const connectionData = `<your_connection_data>`;
 
-const stackmq = new Stackmq(connectionString);
+const stackmq = new Stackmq(connectionData);
 
-stackmq.onMessage((message) => {
+stackmq
+  .onMessage((message) => {
     console.log(message);
-})
-.onError((error) => {
+  })
+  .onError((error) => {
     console.log({ error });
-});
+  });
 ```
 
 ## Api
+
 - `Stackmq()`
 
-### Stackmq(connectionString)
+### Stackmq(connectionData)
 
 Creates a new stackmq connection
 
-- `connectionString`: The connection string to the stackmq. It should be the in the format
-`${host}://${hostAddress}:${port}/${username}:${password}/client/${clientId}/${topic}`
+- `connectionData`: The connection string to the stackmq. It should be the in the format
+  `const connectionData={
+  client_id: <your_client_id>;
+  host: <your_host>;
+  mqtts_port: <your_mqtts_port>;
+  password: <your_password>;
+  sub_topic: <your_sub_topic>;
+  username: <your_username>;
+  wss_port: <your_wss_port>;
+}`

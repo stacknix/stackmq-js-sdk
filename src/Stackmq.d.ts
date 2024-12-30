@@ -1,15 +1,15 @@
 declare module "stackmq" {
   /**
-   * Represents a connection configuration parsed from the connection string
+   * Represents a connection configuration for the stackmq broker
    */
-  interface ParsedConnection {
+  interface connectionData {
+    client_id: string;
     host: string;
-    hostAddress: string;
-    port: number;
-    username: string;
+    mqtts_port: string;
     password: string;
-    clientId: string;
-    topic: string;
+    sub_topic: string;
+    username: string;
+    wss_port: string;
   }
 
   /**
@@ -18,9 +18,9 @@ declare module "stackmq" {
   export class Stackmq {
     /**
      * Create a new Stackmq connection
-     * @param connectionString The connection string for the stackmq broker
+     * @param connectionData The connection data for the stackmq broker
      */
-    constructor(connectionString: string);
+    constructor(connectionData: connectionData);
 
     /**
      * Check if the client is currently connected
@@ -73,11 +73,4 @@ declare module "stackmq" {
      */
     publish(message: string): void;
   }
-
-  /**
-   * Utility function to parse connection URL
-   * @param url Connection string to parse
-   * @returns Parsed connection details
-   */
-  export function parseUrl(url: string): ParsedConnection;
 }
