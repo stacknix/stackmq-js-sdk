@@ -39,6 +39,7 @@ export class Stackmq {
         username,
         password,
         clientId,
+        reconnectPeriod: 0, // disables auto-reconnect
       });
       this.subscribe();
     } catch (error) {
@@ -89,9 +90,33 @@ export class Stackmq {
    */
   onMessage(callback) {
     if (this.stackmqClient) {
-      this.stackmqClient.on("message", (_, message) => {
+      // Remove existing handler, if any
+      if (this._messageHandler) {
+        this.stackmqClient.off("message", this._messageHandler);
+      }
+
+      // Store the handler reference
+      this._messageHandler = (_, message) => {
         if (callback) callback(message.toString());
-      });
+      };
+
+      // Attach it
+      this.stackmqClient.on("message", this._messageHandler);
+      console.log("Message listener attached");
+    }
+    return this;
+  }
+
+  /**
+   * Detach the current MQTT message listener (if any).
+   *
+   * @returns {Stackmq} The current Stackmq instance for method chaining.
+   */
+  offMessage() {
+    if (this.stackmqClient && this._messageHandler) {
+      this.stackmqClient.off("message", this._messageHandler);
+      this._messageHandler = null;
+      console.log("Message listener removed");
     }
     return this;
   }

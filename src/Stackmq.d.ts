@@ -54,6 +54,12 @@ declare module "stackmq" {
     onMessage(callback?: (message: string) => void): Stackmq;
 
     /**
+     * Remove the currently attached message listener (if any)
+     * @returns The Stackmq instance for method chaining
+     */
+    offMessage(): Stackmq;
+
+    /**
      * Handle connection errors
      * @param callback Callback function to handle errors
      * @returns The Stackmq instance for method chaining
